@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgileAdvisor Pro · SprintAnalyzer - v0.6 | Techno‑Agilist Sai Varakala</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --neon-cyan: #00ffff;
+            --neon-magenta: #ff00ff;
+            --neon-yellow: #ffdd00;
+            --neon-green: #39ff14;
+            --deep-bg: #0a0a0f;
+            --panel-bg: rgba(10, 10, 20, 0.8);
+            --card-border: rgba(0, 255, 255, 0.2);
+            --glow-cyan: 0 0 15px rgba(0,255,255,0.5);
+            --glow-magenta: 0 0 15px rgba(255,0,255,0.5);
+            --font-main: 'Orbitron', 'Rajdhani', 'Segoe UI', sans-serif;
+            --font-body: 'Rajdhani', 'Inter', sans-serif;
+        }
+        body {
+            background: var(--deep-bg);
+            color: #e0e0e0;
+            font-family: var(--font-body);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        .bg-layer {
+            position: fixed; top:0;left:0;width:100%;height:100%;z-index:-2;
+            background: url('https://images.unsplash.com/photo-1535378917042-10a22c7f1f4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            filter: brightness(0.3) saturate(1.2);
+        }
+        .bg-layer::after {
+            content: '';
+            position: absolute; top:0;left:0;width:100%;height:100%;
+            background: repeating-linear-gradient(0deg, rgba(0,255,255,0.02) 0px, rgba(0,255,255,0) 2px, transparent 4px);
+            pointer-events: none;
+        }
+        .scanlines {
+            position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px);
+            pointer-events: none;
+        }
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(20px); background: rgba(5,5,15,0.7);
+            border-bottom: 1px solid rgba(0,255,255,0.3);
+            padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 0 25px rgba(0,255,255,0.15);
+        }
+        .logo {
+            font-family: var(--font-main);
+            font-size: 1.7rem; font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0,255,255,0.6);
+            letter-spacing: 2px;
+        }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: #aaa; text-decoration: none; font-weight: 600; transition: 0.2s; }
+        .nav-links a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+        .hero {
+            position: relative; min-height: 80vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; padding: 2rem;
+        }
+        .glitch-text {
+            font-family: var(--font-main); font-size: 4rem; font-weight: 900;
+            text-transform: uppercase; position: relative; display: inline-block;
+            color: var(--neon-cyan); letter-spacing: 8px;
+            animation: glitch 3s infinite;
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+        @keyframes glitch {
+            0% { text-shadow: 0 0 10px cyan; }
+            25% { text-shadow: 2px 0 magenta, -2px 0 cyan; }
+            50% { text-shadow: -2px 0 cyan, 2px 0 magenta; }
+            75% { text-shadow: 0 0 20px cyan; }
+            100% { text-shadow: 0 0 10px cyan; }
+        }
+        .sub-glitch { font-size: 1.8rem; color: #fff; margin-top: 1rem; font-weight: 600; }
+        .techno-title {
+            background: linear-gradient(90deg, var(--neon-yellow), var(--neon-green));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-weight: 700; margin-top: 0.5rem; font-size: 1.6rem;
+        }
+        .hero-buttons { margin-top: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+        .btn { padding: 0.9rem 2.2rem; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.2s; border: 2px solid transparent; }
+        .btn-demo { background: rgba(0,255,255,0.15); border-color: var(--neon-cyan); color: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan); }
+        .btn-pro { background: var(--neon-magenta); color: #000; box-shadow: 0 0 25px var(--neon-magenta); }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.3); }
+        section { padding: 4rem 1.5rem; max-width: 1300px; margin: 0 auto; }
+        .section-title { font-family: var(--font-main); font-size: 2.5rem; color: var(--neon-cyan); text-align: center; margin-bottom: 2rem; text-shadow: 0 0 15px var(--neon-cyan); }
+        .terminal-card {
+            background: var(--panel-bg); border: 1px solid var(--card-border);
+            border-radius: 24px; overflow: hidden; box-shadow: 0 0 30px rgba(0,255,255,0.2);
+            backdrop-filter: blur(10px); margin-bottom: 2rem;
+        }
+        .terminal-header {
+            background: rgba(0,255,255,0.1); padding: 0.8rem 1.5rem; display: flex; gap: 8px;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #27c93f; }
+        .terminal-body iframe { width: 100%; height: 620px; border: none; }
+        .pro-card {
+            background: linear-gradient(135deg, rgba(255,0,255,0.1), rgba(0,255,255,0.1));
+            border: 1px solid var(--neon-magenta); border-radius: 24px; padding: 2.5rem;
+            box-shadow: 0 0 40px rgba(255,0,255,0.3); backdrop-filter: blur(12px);
+            display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: center;
+        }
+        .pro-features { list-style: none; color: #ddd; }
+        .pro-features li { margin: 0.6rem 0; }
+        .stripe-btn {
+            background: var(--neon-magenta); color: #000; font-weight: 700;
+            padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none;
+            box-shadow: 0 0 35px var(--neon-magenta); display: inline-block; margin-top: 1rem;
+        }
+        .mascot-canvas {
+            position: fixed; bottom: 20px; right: 20px; width: 140px; height: 140px;
+            z-index: 999; filter: drop-shadow(0 0 15px cyan); pointer-events: none;
+        }
+        .creator-card {
+            background: rgba(0,0,0,0.6); border: 1px solid var(--neon-yellow);
+            border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px);
+            display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;
+        }
+        .creator-title { color: var(--neon-yellow); font-weight: 800; font-size: 1.8rem; }
+        footer { background: rgba(0,0,0,0.8); border-top: 1px solid rgba(0,255,255,0.3); padding: 2rem; text-align: center; }
+        .social-icons a { color: var(--neon-cyan); margin: 0 0.8rem; font-size: 1.5rem; text-decoration: none; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-layer"></div>
+    <div class="scanlines"></div>
+    <canvas class="mascot-canvas" id="mascotCanvas" width="140" height="140"></canvas>
+
+    <nav>
+        <div class="logo">⚡ SprintAnalyzer</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#demo">AgileAdvisor</a>
+            <a href="#pro">Pro</a>
+            <a href="#creator">Techno‑Agilist</a>
+            <a href="#collab">Contact</a>
+        </div>
+    </nav>
+
+    <div id="home" class="hero">
+        <h1 class="glitch-text">AgileAdvisor Pro</h1>
+        <p class="sub-glitch">RAG‑Powered AI Coach for the <span class="techno-title">Next Era of Agile</span></p>
+        <p class="techno-title">by Techno‑Agilist Sai Varakala</p>
+        <div class="hero-buttons">
+            <a href="#demo" class="btn btn-demo">🚀 Launch Free Demo</a>
+            <a href="https://buy.stripe.com/your_pro_link_here" target="_blank" class="btn btn-pro">⚡ Get Pro – $19/mo</a>
+        </div>
+    </div>
+
+    <section id="demo">
+        <h2 class="section-title">◈ Neural Agile Terminal ◈</h2>
+        <div class="terminal-card">
+            <div class="terminal-header">
+                <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+                <span style="margin-left:1rem;color:var(--neon-cyan);">agile-advisor.ai – v0.5</span>
+            </div>
+            <div class="terminal-body">
+                <iframe src="https://suryasticsai-agileadvisor.hf.space" title="AgileAdvisor"></iframe>
+            </div>
+        </div>
+        <p style="text-align:center;color:var(--neon-green);text-shadow:0 0 5px var(--neon-green);">→ The free demo has limited queries. Unlock full power with Pro.</p>
+    </section>
+
+    <section id="pro">
+        <h2 class="section-title">♦ Ultra Pro Edition ♦</h2>
+        <div class="pro-card">
+            <div>
+                <h3 style="color:var(--neon-magenta);font-size:2rem;">$19/month</h3>
+                <ul class="pro-features">
+                    <li>✅ Unlimited queries & PDF uploads</li>
+                    <li>✅ Private team knowledge base</li>
+                    <li>✅ Slack/Teams integration</li>
+                    <li>✅ Transcript Analyzer with charts</li>
+                    <li>✅ Priority support from the Techno‑Agilist</li>
+                    <li>✅ No branding, export reports</li>
+                </ul>
+                <a href="https://buy.stripe.com/your_pro_link_here" target="_blank" class="stripe-btn">🔓 Subscribe Now</a>
+            </div>
+            <div style="font-size:6rem;text-align:center;">🧠💎</div>
+        </div>
+    </section>
+
+    <section id="creator">
+        <h2 class="section-title">▲ Meet the Techno‑Agilist ▲</h2>
+        <div class="creator-card">
+            <div style="font-size:5rem;">👽</div>
+            <div>
+                <h3 class="creator-title">Sai Surya Varakala</h3>
+                <p><strong>Forward Deploy Manager | AI & Agile Automation Architect</strong></p>
+                <p>6+ years of enterprise agile transformation, now fusing LLMs & RAG to build sentient sprint companions.</p>
+                <p><span style="color:var(--neon-cyan);">@suryasticsai</span> across all grids.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="collab">
+        <h2 class="section-title">◈ Join the Cyber Collective ◈</h2>
+        <div style="display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;">
+            <a href="mailto:sai.varakala13@gmail.com" class="btn btn-demo">📧 Email</a>
+            <a href="https://linkedin.com/in/suryasticsai" target="_blank" class="btn btn-demo">🔗 LinkedIn</a>
+            <a href="https://github.com/suryasticsai" target="_blank" class="btn btn-demo">🐙 GitHub</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://linkedin.com/in/suryasticsai" target="_blank">in</a>
+            <a href="https://twitter.com/suryasticsai" target="_blank">𝕏</a>
+            <a href="https://github.com/suryasticsai" target="_blank">⚙️</a>
+        </div>
+        <!-- Dynamic year & last updated date -->
+        <p>© <span id="currentYear">2026</span> SprintAnalyzer — AgileAdvisor Pro · Powered by RAG & Groq</p>
+        <p style="color:var(--neon-magenta)">“The future of Agile is autonomous.” – Techno‑Agilist Sai Varakala</p>
+        <p style="font-size:0.75rem;color:#888;">Last updated: <span id="lastUpdated"></span></p>
+    </footer>
+
+    <script>
+        // Set dynamic year and last updated date
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+
+        // ---- Interactive robot mascot: eyes follow cursor ----
+        (function() {
+            const canvas = document.getElementById('mascotCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width, h = canvas.height;
+
+            function drawFace(mx, my) {
+                ctx.clearRect(0, 0, w, h);
+                // Head (metallic alien)
+                ctx.fillStyle = '#1a1a2e';
+                ctx.strokeStyle = '#00ffff';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.ellipse(w/2, h/2, 40, 50, 0, 0, Math.PI*2);
+                ctx.fill();
+                ctx.stroke();
+
+                const eyeRadius = 12;
+                const leftEyeX = w/2 - 20, rightEyeX = w/2 + 20, eyeY = h/2 - 10;
+                // Eye whites
+                ctx.fillStyle = '#fff';
+                ctx.beginPath(); ctx.arc(leftEyeX, eyeY, 14, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.arc(rightEyeX, eyeY, 14, 0, Math.PI*2); ctx.fill();
+                // Pupils
+                const angleL = Math.atan2(my - eyeY, mx - leftEyeX);
+                const angleR = Math.atan2(my - eyeY, mx - rightEyeX);
+                const distL = Math.min(6, Math.hypot(mx-leftEyeX, my-eyeY)*0.1);
+                const distR = Math.min(6, Math.hypot(mx-rightEyeX, my-eyeY)*0.1);
+                const pupilLX = leftEyeX + Math.cos(angleL)*distL;
+                const pupilLY = eyeY + Math.sin(angleL)*distL;
+                const pupilRX = rightEyeX + Math.cos(angleR)*distR;
+                const pupilRY = eyeY + Math.sin(angleR)*distR;
+
+                ctx.fillStyle = '#000';
+                ctx.beginPath(); ctx.arc(pupilLX, pupilLY, 5, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.arc(pupilRX, pupilRY, 5, 0, Math.PI*2); ctx.fill();
+                // Glow
+                ctx.shadowColor = '#0ff'; ctx.shadowBlur = 10;
+                ctx.fillStyle = '#00ffff44';
+                ctx.beginPath(); ctx.arc(pupilLX, pupilLY, 5, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.arc(pupilRX, pupilRY, 5, 0, Math.PI*2); ctx.fill();
+                ctx.shadowBlur = 0;
+
+                // Mouth
+                ctx.strokeStyle = '#ff00ff';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(w/2, h/2+20, 12, 0.1, Math.PI-0.1);
+                ctx.stroke();
+
+                // Antenna
+                ctx.strokeStyle = '#0ff';
+                ctx.beginPath();
+                ctx.moveTo(w/2, h/2-45);
+                ctx.lineTo(w/2, h/2-55);
+                ctx.stroke();
+                ctx.fillStyle = '#ff00ff';
+                ctx.beginPath(); ctx.arc(w/2, h/2-58, 4, 0, Math.PI*2); ctx.fill();
+            }
+
+            function update() {
+                const rect = canvas.getBoundingClientRect();
+                const centerX = rect.left + rect.width/2;
+                const centerY = rect.top + rect.height/2;
+                const mx = window.mouseX !== undefined ? window.mouseX : centerX;
+                const my = window.mouseY !== undefined ? window.mouseY : centerY;
+                drawFace(mx, my);
+                requestAnimationFrame(update);
+            }
+
+            window.addEventListener('mousemove', e => {
+                window.mouseX = e.clientX;
+                window.mouseY = e.clientY;
+            });
+            window.addEventListener('mouseleave', () => {
+                window.mouseX = undefined;
+                window.mouseY = undefined;
+            });
+            update();
+        })();
+    </script>
+</body>
+</html>
