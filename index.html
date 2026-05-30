@@ -1,547 +1,316 @@
-</-- SprintAnalyzer Version 0.5 created By Sai Varakala @suryasticsai -->
+<!-- SprintAnalyzer-v0.6 ¦ AgileAdvisor v1.5 Pro ¦ Gamified Product Launching  🚀  Page -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>SprintAnalyzer · AgileAdvisor v0.5 | RAG by Sai Varakala</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgileAdvisor Pro · SprintAnalyzer - v0.6 | Techno‑Agilist Sai Varakala</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.35);
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --accent: #f59e0b;
-            --success: #10b981;
-            --dark: #0f172a;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --border: #e2e8f0;
-            --bg: #ffffff;
-            --surface: #f8fafc;
-            --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            --neon-cyan: #00ffff;
+            --neon-magenta: #ff00ff;
+            --neon-yellow: #ffdd00;
+            --neon-green: #39ff14;
+            --deep-bg: #0a0a0f;
+            --panel-bg: rgba(10, 10, 20, 0.8);
+            --card-border: rgba(0, 255, 255, 0.2);
+            --glow-cyan: 0 0 15px rgba(0,255,255,0.5);
+            --glow-magenta: 0 0 15px rgba(255,0,255,0.5);
+            --font-main: 'Orbitron', 'Rajdhani', 'Segoe UI', sans-serif;
+            --font-body: 'Rajdhani', 'Inter', sans-serif;
         }
-
-        html.dark {
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --text: #f1f5f9;
-            --text-light: #cbd5e1;
-            --border: #334155;
-            --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
-        }
-
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            background: var(--deep-bg);
+            color: #e0e0e0;
+            font-family: var(--font-body);
             line-height: 1.5;
-            transition: background 0.2s, color 0.2s;
+            overflow-x: hidden;
         }
-
-        /* Navigation */
+        .bg-layer {
+            position: fixed; top:0;left:0;width:100%;height:100%;z-index:-2;
+            background: url('https://images.unsplash.com/photo-1535378917042-10a22c7f1f4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            filter: brightness(0.3) saturate(1.2);
+        }
+        .bg-layer::after {
+            content: '';
+            position: absolute; top:0;left:0;width:100%;height:100%;
+            background: repeating-linear-gradient(0deg, rgba(0,255,255,0.02) 0px, rgba(0,255,255,0) 2px, transparent 4px);
+            pointer-events: none;
+        }
+        .scanlines {
+            position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px);
+            pointer-events: none;
+        }
         nav {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            z-index: 100;
-            border-bottom: 1px solid var(--border);
-            padding: 0.8rem 2rem;
-        }
-        html.dark nav {
-            background: rgba(15, 23, 42, 0.85);
-        }
-        .nav-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(20px); background: rgba(5,5,15,0.7);
+            border-bottom: 1px solid rgba(0,255,255,0.3);
+            padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 0 25px rgba(0,255,255,0.15);
         }
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.3px;
+            font-family: var(--font-main);
+            font-size: 1.7rem; font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0,255,255,0.6);
+            letter-spacing: 2px;
         }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: #aaa; text-decoration: none; font-weight: 600; transition: 0.2s; }
+        .nav-links a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+        .hero {
+            position: relative; min-height: 80vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; padding: 2rem;
         }
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
+        .glitch-text {
+            font-family: var(--font-main); font-size: 4rem; font-weight: 900;
+            text-transform: uppercase; position: relative; display: inline-block;
+            color: var(--neon-cyan); letter-spacing: 8px;
+            animation: glitch 3s infinite;
+            text-shadow: 0 0 20px var(--neon-cyan);
         }
-        .nav-links a:hover {
-            color: var(--primary);
+        @keyframes glitch {
+            0% { text-shadow: 0 0 10px cyan; }
+            25% { text-shadow: 2px 0 magenta, -2px 0 cyan; }
+            50% { text-shadow: -2px 0 cyan, 2px 0 magenta; }
+            75% { text-shadow: 0 0 20px cyan; }
+            100% { text-shadow: 0 0 10px cyan; }
         }
-        .theme-toggle {
-            width: 52px;
-            height: 28px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 40px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 0 4px;
-            transition: 0.2s;
+        .sub-glitch { font-size: 1.8rem; color: #fff; margin-top: 1rem; font-weight: 600; }
+        .techno-title {
+            background: linear-gradient(90deg, var(--neon-yellow), var(--neon-green));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-weight: 700; margin-top: 0.5rem; font-size: 1.6rem;
         }
-        .theme-toggle .toggle-circle {
-            width: 22px;
-            height: 22px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: white;
+        .hero-buttons { margin-top: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+        .btn { padding: 0.9rem 2.2rem; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.2s; border: 2px solid transparent; }
+        .btn-demo { background: rgba(0,255,255,0.15); border-color: var(--neon-cyan); color: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan); }
+        .btn-pro { background: var(--neon-magenta); color: #000; box-shadow: 0 0 25px var(--neon-magenta); }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.3); }
+        section { padding: 4rem 1.5rem; max-width: 1300px; margin: 0 auto; }
+        .section-title { font-family: var(--font-main); font-size: 2.5rem; color: var(--neon-cyan); text-align: center; margin-bottom: 2rem; text-shadow: 0 0 15px var(--neon-cyan); }
+        .terminal-card {
+            background: var(--panel-bg); border: 1px solid var(--card-border);
+            border-radius: 24px; overflow: hidden; box-shadow: 0 0 30px rgba(0,255,255,0.2);
+            backdrop-filter: blur(10px); margin-bottom: 2rem;
         }
-        html.dark .theme-toggle .toggle-circle {
-            transform: translateX(24px);
+        .terminal-header {
+            background: rgba(0,255,255,0.1); padding: 0.8rem 1.5rem; display: flex; gap: 8px;
+            border-bottom: 1px solid var(--card-border);
         }
-
-        /* Main section */
-        .main-container {
-            max-width: 1280px;
-            margin: 2rem auto 0 auto;
-            padding: 0 1.5rem;
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #27c93f; }
+        .terminal-body iframe { width: 100%; height: 620px; border: none; }
+        .pro-card {
+            background: linear-gradient(135deg, rgba(255,0,255,0.1), rgba(0,255,255,0.1));
+            border: 1px solid var(--neon-magenta); border-radius: 24px; padding: 2.5rem;
+            box-shadow: 0 0 40px rgba(255,0,255,0.3); backdrop-filter: blur(12px);
+            display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: center;
         }
-        .advisor-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
+        .pro-features { list-style: none; color: #ddd; }
+        .pro-features li { margin: 0.6rem 0; }
+        .stripe-btn {
+            background: var(--neon-magenta); color: #000; font-weight: 700;
+            padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none;
+            box-shadow: 0 0 35px var(--neon-magenta); display: inline-block; margin-top: 1rem;
         }
-        .badge {
-            display: inline-block;
-            background: rgba(99, 102, 241, 0.12);
-            backdrop-filter: blur(4px);
-            padding: 0.25rem 1rem;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--primary);
-            border: 1px solid var(--border);
-            margin-bottom: 1rem;
+        .mascot-canvas {
+            position: fixed; bottom: 20px; right: 20px; width: 140px; height: 140px;
+            z-index: 999; filter: drop-shadow(0 0 15px cyan); pointer-events: none;
         }
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.02em;
+        .creator-card {
+            background: rgba(0,0,0,0.6); border: 1px solid var(--neon-yellow);
+            border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px);
+            display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;
         }
-        .subhead {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            max-width: 680px;
-            margin: 0.5rem auto 0 auto;
-        }
-        .tool-embed {
-            background: var(--surface);
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border);
-            margin: 2rem 0 3rem 0;
-        }
-        /* slightly increased iframe height */
-        .tool-embed iframe {
-            width: 100%;
-            height: 760px;
-            border: none;
-            display: block;
-        }
-
-        /* section styles */
-        section {
-            padding: 3rem 0;
-        }
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(125deg, var(--text), var(--primary));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .section-sub {
-            color: var(--text-light);
-            margin-bottom: 2rem;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
-            align-items: center;
-        }
-        .contact-box {
-            background: var(--bg);
-            border-radius: 24px;
-            padding: 1.8rem;
-            border-left: 4px solid var(--primary);
-            box-shadow: var(--card-shadow);
-        }
-        .contact-links {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-        .contact-link {
-            background: var(--primary);
-            color: white;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-        .contact-link:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.05);
-        }
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.8rem;
-            margin-top: 1.5rem;
-        }
-        .tool-card {
-            background: var(--surface);
-            border-radius: 24px;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
-            text-align: center;
-        }
-        .tool-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 30px -12px var(--primary-glow);
-        }
-        .tool-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
-        }
-        .tool-link {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 0.4rem 1.2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 500;
-            margin-top: 0.8rem;
-            font-size: 0.9rem;
-        }
-        .about-highlights {
-            margin: 1.5rem 0;
-        }
-        .highlight {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-        footer {
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            padding: 2rem 1.5rem;
-            margin-top: 2rem;
-        }
-        .footer-inner {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 2rem;
-        }
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.4rem;
-            font-size: 0.85rem;
-        }
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-        .social-icons {
-            display: flex;
-            gap: 0.8rem;
-            margin-bottom: 0.8rem;
-        }
-        .social-icons a {
-            background: var(--primary);
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 99;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-        }
-        .scroll-top.show {
-            display: flex;
-        }
-        @media (max-width: 760px) {
-            .nav-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .nav-links {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .tool-embed iframe {
-                height: 560px;
-            }
-            .section-title {
-                font-size: 1.6rem;
-            }
-        }
-        hr {
-            border-color: var(--border);
-            margin: 1rem 0;
-        }
-        .creator-name {
-            font-weight: 700;
-            color: var(--primary);
-        }
+        .creator-title { color: var(--neon-yellow); font-weight: 800; font-size: 1.8rem; }
+        footer { background: rgba(0,0,0,0.8); border-top: 1px solid rgba(0,255,255,0.3); padding: 2rem; text-align: center; }
+        .social-icons a { color: var(--neon-cyan); margin: 0 0.8rem; font-size: 1.5rem; text-decoration: none; }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="bg-layer"></div>
+    <div class="scanlines"></div>
+    <canvas class="mascot-canvas" id="mascotCanvas" width="140" height="140"></canvas>
+
     <nav>
-        <div class="nav-container">
-            <div class="logo">⚡ SprintAnalyzer</div>
-            <div class="nav-links">
-                <a href="#" onclick="scrollToTop()">Home</a>
-                <a href="#advisor">AgileAdvisor</a>
-                <a href="#collab">Collaborate</a>
-                <a href="#about">About</a>
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Dark mode">
-                    <div class="toggle-circle"><span id="themeIcon">🌙</span></div>
-                </button>
-            </div>
+        <div class="logo">⚡ SprintAnalyzer</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#demo">AgileAdvisor</a>
+            <a href="#pro">Pro</a>
+            <a href="#creator">Techno‑Agilist</a>
+            <a href="#collab">Contact</a>
         </div>
     </nav>
 
-    <div class="main-container">
-        <!-- AgileAdvisor v0.5 Section - Primary focus, no hero -->
-        <div id="advisor">
-            <div class="advisor-header">
-                <span class="badge">⚡ RAG-Powered · Real-time context</span>
-                <h1>AgileAdvisor <span style="background: none; -webkit-text-fill-color: initial; color: var(--primary);">version 0.5</span></h1>
-                <p class="subhead">Built with Retrieval-Augmented Generation (RAG) by <strong class="creator-name">Sai Varakala</strong></p>
-                <p class="subhead" style="font-size: 0.95rem; margin-top: 0.5rem;">Ask anything about Agile metrics, retrospectives, story points, or anti-patterns — intelligent answers for modern teams.</p>
-            </div>
-            <div class="tool-embed">
-                <iframe src="https://suryasticsai-agileadvisor.hf.space" title="AgileAdvisor AI Assistant - RAG by Sai Varakala"></iframe>
-            </div>
+    <div id="home" class="hero">
+        <h1 class="glitch-text">AgileAdvisor Pro</h1>
+        <p class="sub-glitch">RAG‑Powered AI Coach for the <span class="techno-title">Next Era of Agile</span></p>
+        <p class="techno-title">by Techno‑Agilist Sai Varakala</p>
+        <div class="hero-buttons">
+            <a href="#demo" class="btn btn-demo">🚀 Launch Free Demo</a>
+            <a href="https://buy.stripe.com/your_pro_link_here" target="_blank" class="btn btn-pro">⚡ Get Pro – $19/mo</a>
         </div>
-
-        <!-- Collaboration Section -->
-        <section id="collab">
-            <div class="grid-2">
-                <div>
-                    <h2 class="section-title">Collaborate & Contribute</h2>
-                    <p class="section-sub">Join the evolution of Agile automation. Whether you want to contribute code, share feedback, or co-create the next features — let's build together.</p>
-                    <div class="contact-box">
-                        <h3 style="margin-bottom: 0.5rem;">📬 Get in touch</h3>
-                        <div class="contact-links">
-                            <a href="mailto:sai.varakala13@gmail.com" class="contact-link">✉️ Email</a>
-                            <a href="https://linkedin.com/in/suryasticsai" target="_blank" class="contact-link">🔗 LinkedIn</a>
-                            <a href="https://twitter.com/suryasticsai" target="_blank" class="contact-link">🐦 X (Twitter)</a>
-                            <a href="https://github.com/suryasticsai" target="_blank" class="contact-link">🐙 GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div style="font-size: 4rem; text-align: center;">🤝✨</div>
-            </div>
-        </section>
-
-        <!-- More Agile Intelligence Tools (including AgileAdvisor card) -->
-        <section>
-            <h2 class="section-title">More Agile Intelligence Tools</h2>
-            <p class="section-sub">Complete suite for Scrum Masters, Product Owners, and Developers</p>
-            <div class="tools-grid">
-                <!-- AgileAdvisor card added here -->
-                <div class="tool-card">
-                    <div class="tool-icon">🧠</div>
-                    <h3>AgileAdvisor v0.5</h3>
-                    <p>RAG-powered assistant for sprint planning, retrospectives, and Agile best practices.</p>
-                    <a href="#advisor" class="tool-link">Launch Assistant →</a>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">📊</div>
-                    <h3>ScrumLens</h3>
-                    <p>Velocity trends, cycle time analytics, and team health dashboards.</p>
-                    <a href="https://scrumlens.netlify.app" target="_blank" class="tool-link">Explore →</a>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">⚗️</div>
-                    <h3>Alkembic</h3>
-                    <p>Transform Jira/Agile data into predictive insights and forecasting.</p>
-                    <a href="https://alkembic1.netlify.app" target="_blank" class="tool-link">Launch Tool →</a>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">📖</div>
-                    <h3>Alkembic Docs</h3>
-                    <p>Guides, API references, and automation playbooks.</p>
-                    <a href="https://alkembic.netlify.app" target="_blank" class="tool-link">Read Docs →</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Creator Section -->
-        <section id="about">
-            <div class="grid-2">
-                <div>
-                    <h2 class="section-title">About Sai Surya Varakala</h2>
-                    <p><strong>Forward Deploy Manager | AI & Agile Automation Architect</strong></p>
-                    <p style="margin: 0.8rem 0;">Building intelligent automation that bridges Agile frameworks with generative AI. Creator of AgileAdvisor (RAG engine), ScrumLens, and Alkembic suite.</p>
-                    <div class="about-highlights">
-                        <div class="highlight"><span style="color: var(--success);">✓</span> 6+ years leading Agile transformation at enterprise scale</div>
-                        <div class="highlight"><span style="color: var(--success);">✓</span> RAG & LLM engineering for domain‑specific assistants</div>
-                        <div class="highlight"><span style="color: var(--success);">✓</span> 10+ productivity tools deployed for global teams</div>
-                    </div>
-                    <p><span class="badge" style="background: var(--primary); color: white; border: none;">@suryasticsai</span> across all platforms</p>
-                </div>
-                <div style="font-size: 5rem; text-align: center;">🧠⚙️</div>
-            </div>
-        </section>
     </div>
 
+    <section id="demo">
+        <h2 class="section-title">◈ Neural Agile Terminal ◈</h2>
+        <div class="terminal-card">
+            <div class="terminal-header">
+                <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+                <span style="margin-left:1rem;color:var(--neon-cyan);">agile-advisor.ai – v0.5</span>
+            </div>
+            <div class="terminal-body">
+                <iframe src="https://suryasticsai-agileadvisor.hf.space" title="AgileAdvisor"></iframe>
+            </div>
+        </div>
+        <p style="text-align:center;color:var(--neon-green);text-shadow:0 0 5px var(--neon-green);">→ The free demo has limited queries. Unlock full power with Pro.</p>
+    </section>
+
+    <section id="pro">
+        <h2 class="section-title">♦ Ultra Pro Edition ♦</h2>
+        <div class="pro-card">
+            <div>
+                <h3 style="color:var(--neon-magenta);font-size:2rem;">$19/month</h3>
+                <ul class="pro-features">
+                    <li>✅ Unlimited queries & PDF uploads</li>
+                    <li>✅ Private team knowledge base</li>
+                    <li>✅ Slack/Teams integration</li>
+                    <li>✅ Transcript Analyzer with charts</li>
+                    <li>✅ Priority support from the Techno‑Agilist</li>
+                    <li>✅ No branding, export reports</li>
+                </ul>
+                <a href="https://buy.stripe.com/your_pro_link_here" target="_blank" class="stripe-btn">🔓 Subscribe Now</a>
+            </div>
+            <div style="font-size:6rem;text-align:center;">🧠💎</div>
+        </div>
+    </section>
+
+    <section id="creator">
+        <h2 class="section-title">▲ Meet the Techno‑Agilist ▲</h2>
+        <div class="creator-card">
+            <div style="font-size:5rem;">👽</div>
+            <div>
+                <h3 class="creator-title">Sai Surya Varakala</h3>
+                <p><strong>Forward Deploy Manager | AI & Agile Automation Architect</strong></p>
+                <p>6+ years of enterprise agile transformation, now fusing LLMs & RAG to build sentient sprint companions.</p>
+                <p><span style="color:var(--neon-cyan);">@suryasticsai</span> across all grids.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="collab">
+        <h2 class="section-title">◈ Join the Cyber Collective ◈</h2>
+        <div style="display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;">
+            <a href="mailto:sai.varakala13@gmail.com" class="btn btn-demo">📧 Email</a>
+            <a href="https://linkedin.com/in/suryasticsai" target="_blank" class="btn btn-demo">🔗 LinkedIn</a>
+            <a href="https://github.com/suryasticsai" target="_blank" class="btn btn-demo">🐙 GitHub</a>
+        </div>
+    </section>
+
     <footer>
-        <div class="footer-inner">
-            <div>
-                <h4 style="margin-bottom: 0.6rem;">Ecosystem</h4>
-                <div class="footer-links">
-                    <a href="#">SprintAnalyzer</a>
-                    <a href="#advisor">AgileAdvisor v0.5</a>
-                    <a href="https://scrumlens.netlify.app" target="_blank">ScrumLens</a>
-                    <a href="https://alkembic1.netlify.app" target="_blank">Alkembic</a>
-                </div>
-            </div>
-            <div>
-                <h4 style="margin-bottom: 0.6rem;">Connect</h4>
-                <div class="footer-links">
-                    <a href="mailto:sai.varakala13@gmail.com">Email</a>
-                    <a href="https://linkedin.com/in/suryasticsai" target="_blank">LinkedIn</a>
-                    <a href="https://github.com/suryasticsai" target="_blank">GitHub</a>
-                    <a href="https://twitter.com/suryasticsai" target="_blank">X (Twitter)</a>
-                </div>
-            </div>
-            <div>
-                <h4 style="margin-bottom: 0.6rem;">Resources</h4>
-                <div class="footer-links">
-                    <a href="#collab">Collaborate</a>
-                    <a href="#advisor">AI Assistant</a>
-                    <a href="#about">About Creator</a>
-                    <a href="https://suryasticsai.medium.com" target="_blank">Blog</a>
-                </div>
-            </div>
+        <div class="social-icons">
+            <a href="https://linkedin.com/in/suryasticsai" target="_blank">in</a>
+            <a href="https://twitter.com/suryasticsai" target="_blank">𝕏</a>
+            <a href="https://github.com/suryasticsai" target="_blank">⚙️</a>
         </div>
-        <hr>
-        <div style="text-align: center; font-size: 0.8rem; color: var(--text-light);">
-            <div class="social-icons" style="justify-content: center; margin-bottom: 1rem;">
-                <a href="https://linkedin.com/in/suryasticsai" target="_blank">in</a>
-                <a href="https://twitter.com/suryasticsai" target="_blank">𝕏</a>
-                <a href="https://github.com/suryasticsai" target="_blank">⚙️</a>
-            </div>
-            <p>© 2026 SprintAnalyzer — AgileAdvisor v0.5 · Built with RAG by <strong>Sai Varakala</strong> (@suryasticsai)</p>
-            <p style="margin-top: 0.3rem;">Forward Deploy Manager | AI Automation for Agile Excellence</p>
-        </div>
+        <!-- Dynamic year & last updated date -->
+        <p>© <span id="currentYear">2026</span> SprintAnalyzer — AgileAdvisor Pro · Powered by RAG & Groq</p>
+        <p style="color:var(--neon-magenta)">“The future of Agile is autonomous.” – Techno‑Agilist Sai Varakala</p>
+        <p style="font-size:0.75rem;color:#888;">Last updated: <span id="lastUpdated"></span></p>
     </footer>
 
-    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
-
     <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const isDark = html.classList.contains('dark');
-            if (isDark) {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                document.getElementById('themeIcon').textContent = '🌙';
-            } else {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                document.getElementById('themeIcon').textContent = '☀️';
+        // Set dynamic year and last updated date
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+
+        // ---- Interactive robot mascot: eyes follow cursor ----
+        (function() {
+            const canvas = document.getElementById('mascotCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width, h = canvas.height;
+
+            function drawFace(mx, my) {
+                ctx.clearRect(0, 0, w, h);
+                // Head (metallic alien)
+                ctx.fillStyle = '#1a1a2e';
+                ctx.strokeStyle = '#00ffff';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.ellipse(w/2, h/2, 40, 50, 0, 0, Math.PI*2);
+                ctx.fill();
+                ctx.stroke();
+
+                const eyeRadius = 12;
+                const leftEyeX = w/2 - 20, rightEyeX = w/2 + 20, eyeY = h/2 - 10;
+                // Eye whites
+                ctx.fillStyle = '#fff';
+                ctx.beginPath(); ctx.arc(leftEyeX, eyeY, 14, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.arc(rightEyeX, eyeY, 14, 0, Math.PI*2); ctx.fill();
+                // Pupils
+                const angleL = Math.atan2(my - eyeY, mx - leftEyeX);
+                const angleR = Math.atan2(my - eyeY, mx - rightEyeX);
+                const distL = Math.min(6, Math.hypot(mx-leftEyeX, my-eyeY)*0.1);
+                const distR = Math.min(6, Math.hypot(mx-rightEyeX, my-eyeY)*0.1);
+                const pupilLX = leftEyeX + Math.cos(angleL)*distL;
+                const pupilLY = eyeY + Math.sin(angleL)*distL;
+                const pupilRX = rightEyeX + Math.cos(angleR)*distR;
+                const pupilRY = eyeY + Math.sin(angleR)*distR;
+
+                ctx.fillStyle = '#000';
+                ctx.beginPath(); ctx.arc(pupilLX, pupilLY, 5, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.arc(pupilRX, pupilRY, 5, 0, Math.PI*2); ctx.fill();
+                // Glow
+                ctx.shadowColor = '#0ff'; ctx.shadowBlur = 10;
+                ctx.fillStyle = '#00ffff44';
+                ctx.beginPath(); ctx.arc(pupilLX, pupilLY, 5, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.arc(pupilRX, pupilRY, 5, 0, Math.PI*2); ctx.fill();
+                ctx.shadowBlur = 0;
+
+                // Mouth
+                ctx.strokeStyle = '#ff00ff';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(w/2, h/2+20, 12, 0.1, Math.PI-0.1);
+                ctx.stroke();
+
+                // Antenna
+                ctx.strokeStyle = '#0ff';
+                ctx.beginPath();
+                ctx.moveTo(w/2, h/2-45);
+                ctx.lineTo(w/2, h/2-55);
+                ctx.stroke();
+                ctx.fillStyle = '#ff00ff';
+                ctx.beginPath(); ctx.arc(w/2, h/2-58, 4, 0, Math.PI*2); ctx.fill();
             }
-        }
 
-        function loadTheme() {
-            const saved = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (saved === 'dark' || (!saved && prefersDark)) {
-                document.documentElement.classList.add('dark');
-                document.getElementById('themeIcon').textContent = '☀️';
-            } else {
-                document.getElementById('themeIcon').textContent = '🌙';
+            function update() {
+                const rect = canvas.getBoundingClientRect();
+                const centerX = rect.left + rect.width/2;
+                const centerY = rect.top + rect.height/2;
+                const mx = window.mouseX !== undefined ? window.mouseX : centerX;
+                const my = window.mouseY !== undefined ? window.mouseY : centerY;
+                drawFace(mx, my);
+                requestAnimationFrame(update);
             }
-        }
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        const scrollBtn = document.getElementById('scrollTopBtn');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                scrollBtn.classList.add('show');
-            } else {
-                scrollBtn.classList.remove('show');
-            }
-        });
-
-        loadTheme();
+            window.addEventListener('mousemove', e => {
+                window.mouseX = e.clientX;
+                window.mouseY = e.clientY;
+            });
+            window.addEventListener('mouseleave', () => {
+                window.mouseX = undefined;
+                window.mouseY = undefined;
+            });
+            update();
+        })();
     </script>
 </body>
 </html>
