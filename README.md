@@ -1,8 +1,8 @@
-# SprintAnalyzer · AgileAdvisor v0.5
+# SprintAnalyzer · AgileAdvisor v0.6
 
 **RAG‑powered Agile automation assistant** – built by Sai Varakala (@suryasticsai)
 
-SprintAnalyzer is a modern web interface that integrates **AgileAdvisor v0.5**, a Retrieval-Augmented Generation (RAG) AI assistant designed to help Scrum Masters, Product Owners, and Agile teams answer questions about sprint metrics, retrospectives, story points, anti-patterns, and best practices. The platform also showcases a suite of complementary Agile intelligence tools.
+SprintAnalyzer is a modern web interface that integrates **AgileAdvisor v0.6**, a Retrieval-Augmented Generation (RAG) AI assistant designed to help Scrum Masters, Pro versions is open for subscription, gamified interface for product launching page this is exclusive for Product Owners, and Agile teams answer questions about sprint metrics, retrospectives, story points, anti-patterns, and best practices. The platform also showcases a suite of complementary Agile intelligence tools.
 
 **Live Demo** – [Deployed on Netlify / GitHub Pages]
 🔗 https://sprintanalyzer.netlify.app
@@ -10,6 +10,24 @@ SprintAnalyzer is a modern web interface that integrates **AgileAdvisor v0.5**, 
 ---
 
 ## ✨ Key Features
+- **AgileAdvisor v0.6** – RAG‑powered new UI & cyberpunk-alien-tech theme
+
+1. Full HD cyberpunk background - high-res neon cityscape from Unsplash, darkened with a glowing overlay.
+
+2. Scanline effect - retro-future CRT lines across the whole screen.
+
+3. Interactive mascot a robot alien in the bottom-right corner; its eyes follow your cursor anywhere on the page.
+
+4. Glitch text hero title with neon animations.
+
+5. AgileAdvisor embedded in a "Neural Terminal" with glowing dots and border.
+
+6. Pro card with magenta-cyan glow, feature list, and a Stripe payment button (just replace the placeholder URL with your real Stripe link).
+
+7. "Techno-Agilist" title elevated throughout you're now Sai Varakala, the cybernetic agile master.
+
+8. Ultra-gaming feel - heavy neon, bold typography (Orbitron + Rajdhani), and intense shadows.
+___
 
 - **AgileAdvisor v0.5** – RAG‑powered AI assistant (iframe integration with Hugging Face Space)
 - **Dark / Light mode** – Persistent theme preference
